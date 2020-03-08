@@ -9,7 +9,7 @@ How to install
 
 1. Check out the project locally:
     ```
-    git clone ...
+    git clone https://github.com/aletzo/tic-tac-toe-js.git
     ```
 
 2. Go to project root and start a local PHP server:
