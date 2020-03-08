@@ -1,0 +1,29 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <h2>
+        <span>{{ header }}</span>
+        <span
+            id="replay"
+            v-if="!playing"
+            v-on:click="replay"
+        >
+            replay?
+        </span>
+    </h2>
+
+    <div class="container">
+        <div 
+            class="cell"
+            v-bind:class="{ hover: cell.hover, win: cell.win }"
+            v-for="cell in cells"
+            v-on:click="play(cell)"
+            v-on:mouseover="cell.hover = playing"
+            v-on:mouseleave="cell.hover = false"
+        >
+            {{ cell.text }}
+        </div>
+    </div>
+</div>
+
+<script src="js/vuejs/app.js"></script>
