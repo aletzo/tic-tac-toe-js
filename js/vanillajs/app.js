@@ -28,16 +28,6 @@ const eventHandlers = {
         updateTurn()
     },
 
-    mouseenter: ev => {
-        const cell = ev.target
-
-        if (cell.classList.contains('played')) {
-            return
-        }
-
-        cell.classList.add('hover')
-    },
-
     mouseleave: ev => {
         const cell = ev.target
 
@@ -46,14 +36,24 @@ const eventHandlers = {
         }
 
         cell.classList.remove('hover')
+    },
+
+    mouseover: ev => {
+        const cell = ev.target
+
+        if (cell.classList.contains('played')) {
+            return
+        }
+
+        cell.classList.add('hover')
     }
 }
 
 document.querySelectorAll('.cell')
     .forEach(el => {
         el.addEventListener('click', eventHandlers.click)
-        el.addEventListener('mouseenter', eventHandlers.mouseenter)
         el.addEventListener('mouseleave', eventHandlers.mouseleave)
+        el.addEventListener('mouseover', eventHandlers.mouseover)
     })
 
 const isDraw = () => {
