@@ -21,7 +21,10 @@ foreach ($dirs as $fileinfo) {
 
     $version = $fileinfo->getFilename();
 
-    if (!is_file("js/$version/index.html")) {
+    if (!is_file("js/$version/index.html")
+        &&
+        !is_file("js/$version/build/index.html")
+    ) {
         continue;
     }
     
@@ -36,7 +39,12 @@ if (!in_array($js, $versions)) {
 
 $file = "js/$js/index.html";
 
+if (!is_file($file)) {
+    $file = "js/$js/build/index.html";
+}
+
 $content = file_get_contents($file);
+
 
 ?>
 <!DOCTYPE html>
