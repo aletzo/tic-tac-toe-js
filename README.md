@@ -12,16 +12,19 @@ How to install
     git clone https://github.com/aletzo/tic-tac-toe-js.git
     ```
 
-2. Go to project root and start a local PHP server:
+2. Go to `js/react` dir and execute:
+    ```
+    yarn run build
+    ```
+
+3. Edit `js/react/build/index.html` to fix the paths of the 3 static files.
+
+4. Go to project root and start a local PHP server:
     ```
     php -S localhost:8000 router.php
     ```
 
-3. Open the app in a browser:
+5. Open the app in a browser:
     ```
     http://localhost:8000
     ```
-
-
-
-
