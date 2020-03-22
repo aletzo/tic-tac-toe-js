@@ -9,7 +9,7 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (Html, h2, span, div, text)
-import Html.Attributes exposing (class, classList)
+import Html.Attributes exposing (class, classList, id)
 import Html.Events exposing (onClick, onMouseOut, onMouseOver)
 import Maybe exposing (withDefault)
 
@@ -133,6 +133,7 @@ type Msg
   = MouseOut Cell
   | MouseOver Cell
   | Play Cell
+  | Replay
 
 
 update : Msg -> Model -> Model
@@ -176,30 +177,56 @@ update msg model =
             else
               "x"
         
+        winningCells : List Int
+        winningCells = isWin cells
+
         h = 
-          let
-            winningCells : List Int
-            winningCells = isWin cells
-          in
-            if (List.length winningCells) > 0 then
-              -- TODO: update the winning cells
-              -- List.map (\i -> if List.member i.key winningCells then { i | win = True } else { i | win = False } )  cells
+          if (List.length winningCells) > 0 then
+            -- TODO: update the winning cells
+            -- List.map (\i -> if List.member i.key winningCells then { i | win = True } else { i | win = False } )  cells
 
-              t ++ " wins!"
+            t ++ " wins!"
+          else
+            if isDraw cells then
+              "draw..."
             else
-              if isDraw cells then
-                  "draw..."
-              else
-                  t ++ " turn"
+              t ++ " turn"
 
-        -- TODO: isDraw
+        p =
+          if (List.length winningCells) > 0 then
+            False
+          else
+            if isDraw cells then
+              False
+            else
+              True
+
         -- TODO: isWin
       in
       { model 
          | cells = cells
          , header = h
+         , playing = p
          , turn = t
       }
+
+    Replay ->
+      { model 
+        | cells = [ { hover = False, key = 0, played = False, text = "", win = False } 
+                  , { hover = False, key = 1, played = False, text = "", win = False } 
+                  , { hover = False, key = 2, played = False, text = "", win = False } 
+                  , { hover = False, key = 3, played = False, text = "", win = False } 
+                  , { hover = False, key = 4, played = False, text = "", win = False } 
+                  , { hover = False, key = 5, played = False, text = "", win = False } 
+                  , { hover = False, key = 6, played = False, text = "", win = False } 
+                  , { hover = False, key = 7, played = False, text = "", win = False } 
+                  , { hover = False, key = 8, played = False, text = "", win = False } 
+                  ]
+        , header = "x turn"
+        , turn = "x"
+        , playing = True
+      }
+
 
 
 -- VIEW HELPERS
@@ -220,10 +247,18 @@ viewCell cell =
         
 -- VIEW
 
-
 view : Model -> Html Msg
 view model =
   div []
-    [ h2 [] [text model.header ]
-    , div [ class "container"] (List.map viewCell <| model.cells)
+    [ h2 [] 
+        [ span [] [ text model.header ] 
+        , span [ 
+            classList
+              [ ("hidden", model.playing)
+              ],
+            id "replay",
+            onClick Replay 
+          ] [ text "replay?" ] 
+        ]
+    , div [ class "container" ] (List.map viewCell <| model.cells)
     ]

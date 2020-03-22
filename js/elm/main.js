@@ -5259,7 +5259,7 @@ var $author$project$Main$update = F2(
 				return _Utils_update(
 					model,
 					{cells: cells});
-			default:
+			case 'Play':
 				var cell = msg.a;
 				var t = cell.played ? model.turn : ((model.turn === 'x') ? 'o' : 'x');
 				var c = _Utils_update(
@@ -5272,15 +5272,35 @@ var $author$project$Main$update = F2(
 					$elm$core$List$map,
 					$author$project$Main$updateByKey(c),
 					model.cells);
-				var h = function () {
-					var winningCells = $author$project$Main$isWin(cells);
-					return ($elm$core$List$length(winningCells) > 0) ? (t + ' wins!') : ($author$project$Main$isDraw(cells) ? 'draw...' : (t + ' turn'));
-				}();
+				var winningCells = $author$project$Main$isWin(cells);
+				var h = ($elm$core$List$length(winningCells) > 0) ? (t + ' wins!') : ($author$project$Main$isDraw(cells) ? 'draw...' : (t + ' turn'));
+				var p = ($elm$core$List$length(winningCells) > 0) ? false : ($author$project$Main$isDraw(cells) ? false : true);
 				return _Utils_update(
 					model,
-					{cells: cells, header: h, turn: t});
+					{cells: cells, header: h, playing: p, turn: t});
+			default:
+				return _Utils_update(
+					model,
+					{
+						cells: _List_fromArray(
+							[
+								{hover: false, key: 0, played: false, text: '', win: false},
+								{hover: false, key: 1, played: false, text: '', win: false},
+								{hover: false, key: 2, played: false, text: '', win: false},
+								{hover: false, key: 3, played: false, text: '', win: false},
+								{hover: false, key: 4, played: false, text: '', win: false},
+								{hover: false, key: 5, played: false, text: '', win: false},
+								{hover: false, key: 6, played: false, text: '', win: false},
+								{hover: false, key: 7, played: false, text: '', win: false},
+								{hover: false, key: 8, played: false, text: '', win: false}
+							]),
+						header: 'x turn',
+						playing: true,
+						turn: 'x'
+					});
 		}
 	});
+var $author$project$Main$Replay = {$: 'Replay'};
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5290,19 +5310,6 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$h2 = _VirtualDom_node('h2');
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$Main$MouseOut = function (a) {
-	return {$: 'MouseOut', a: a};
-};
-var $author$project$Main$MouseOver = function (a) {
-	return {$: 'MouseOver', a: a};
-};
-var $author$project$Main$Play = function (a) {
-	return {$: 'Play', a: a};
-};
 var $elm$core$Tuple$second = function (_v0) {
 	var y = _v0.b;
 	return y;
@@ -5317,6 +5324,9 @@ var $elm$html$Html$Attributes$classList = function (classes) {
 				$elm$core$Tuple$first,
 				A2($elm$core$List$filter, $elm$core$Tuple$second, classes))));
 };
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$h2 = _VirtualDom_node('h2');
+var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5333,6 +5343,18 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		$elm$html$Html$Events$on,
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
+};
+var $elm$html$Html$span = _VirtualDom_node('span');
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Main$MouseOut = function (a) {
+	return {$: 'MouseOut', a: a};
+};
+var $author$project$Main$MouseOver = function (a) {
+	return {$: 'MouseOver', a: a};
+};
+var $author$project$Main$Play = function (a) {
+	return {$: 'Play', a: a};
 };
 var $elm$html$Html$Events$onMouseOut = function (msg) {
 	return A2(
@@ -5382,7 +5404,29 @@ var $author$project$Main$view = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(model.header)
+						A2(
+						$elm$html$Html$span,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(model.header)
+							])),
+						A2(
+						$elm$html$Html$span,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$classList(
+								_List_fromArray(
+									[
+										_Utils_Tuple2('hidden', model.playing)
+									])),
+								$elm$html$Html$Attributes$id('replay'),
+								$elm$html$Html$Events$onClick($author$project$Main$Replay)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('replay?')
+							]))
 					])),
 				A2(
 				$elm$html$Html$div,

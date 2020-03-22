@@ -27,6 +27,9 @@ h2 {
     color: var(--green);
     cursor: pointer;
 }
+#replay.hidden {
+    display: none;
+}
 
 .container {
     box-sizing: border-box;
@@ -74,4 +77,3 @@ h2 {
     background-color: var(--black);
     color: var(--green);
 }
-
