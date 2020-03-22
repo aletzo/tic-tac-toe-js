@@ -1,0 +1,77 @@
+:root {
+    --black: #2a2a2a;
+    --green: #4df7b9;
+}
+
+body {
+    color: var(--black);
+}
+
+body * {
+    font-family: Monaco;
+    transition: all 200ms linear;
+}
+
+h2 {
+    text-align: center;
+}
+
+#replay {
+    background-color: var(--green);
+    color: #fff;
+    display:inline-block;
+    padding: 0 .5em;
+}
+#replay:hover {
+    background-color: var(--black);
+    color: var(--green);
+    cursor: pointer;
+}
+
+.container {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: .5em;
+    margin: 50px auto 0;
+    width: 600px;
+}
+
+.cell {
+    background-color: var(--green);
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 150px;
+    height: 200px;
+    line-height: 170px;
+    text-align: center;
+    width: 200px;
+}
+.cell.hover,
+.cell.win {
+    background-color: var(--black);
+    color: var(--green);
+    cursor: pointer;
+}
+
+#versions {
+    display: grid;
+    grid-gap: .3em;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: 3em auto;
+    width: 500px;
+}
+
+#versions a {
+    background-color: var(--green);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+#versions a:hover,
+#versions a.active {
+    background-color: var(--black);
+    color: var(--green);
+}
+
