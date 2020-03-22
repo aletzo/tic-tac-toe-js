@@ -113,13 +113,6 @@ isWin cells =
   winningCells
   
 
-
-
-
-
-
-
-
 type alias Identifyable a = { a | key : Int }
 
 updateByKey : Identifyable a -> Identifyable a -> Identifyable a
@@ -210,22 +203,7 @@ update msg model =
          , turn = t
       }
 
-    Replay ->
-      { model 
-        | cells = [ { hover = False, key = 0, played = False, text = "", win = False } 
-                  , { hover = False, key = 1, played = False, text = "", win = False } 
-                  , { hover = False, key = 2, played = False, text = "", win = False } 
-                  , { hover = False, key = 3, played = False, text = "", win = False } 
-                  , { hover = False, key = 4, played = False, text = "", win = False } 
-                  , { hover = False, key = 5, played = False, text = "", win = False } 
-                  , { hover = False, key = 6, played = False, text = "", win = False } 
-                  , { hover = False, key = 7, played = False, text = "", win = False } 
-                  , { hover = False, key = 8, played = False, text = "", win = False } 
-                  ]
-        , header = "x turn"
-        , turn = "x"
-        , playing = True
-      }
+    Replay -> init
 
 
 

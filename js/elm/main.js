@@ -5279,25 +5279,7 @@ var $author$project$Main$update = F2(
 					model,
 					{cells: cells, header: h, playing: p, turn: t});
 			default:
-				return _Utils_update(
-					model,
-					{
-						cells: _List_fromArray(
-							[
-								{hover: false, key: 0, played: false, text: '', win: false},
-								{hover: false, key: 1, played: false, text: '', win: false},
-								{hover: false, key: 2, played: false, text: '', win: false},
-								{hover: false, key: 3, played: false, text: '', win: false},
-								{hover: false, key: 4, played: false, text: '', win: false},
-								{hover: false, key: 5, played: false, text: '', win: false},
-								{hover: false, key: 6, played: false, text: '', win: false},
-								{hover: false, key: 7, played: false, text: '', win: false},
-								{hover: false, key: 8, played: false, text: '', win: false}
-							]),
-						header: 'x turn',
-						playing: true,
-						turn: 'x'
-					});
+				return $author$project$Main$init;
 		}
 	});
 var $author$project$Main$Replay = {$: 'Replay'};
