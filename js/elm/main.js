@@ -5279,7 +5279,12 @@ var $author$project$Main$isWin = function (cells) {
 				return A2(
 					$elm$core$List$all,
 					function (c) {
-						return (c.text === 'x') || (c.text === 'y');
+						return c.text === 'x';
+					},
+					combination) || A2(
+					$elm$core$List$all,
+					function (c) {
+						return c.text === 'o';
 					},
 					combination);
 			},
@@ -5328,18 +5333,19 @@ var $author$project$Main$update = F2(
 					{cells: cells});
 			case 'Play':
 				var cell = msg.a;
-				var t = cell.played ? model.turn : ((model.turn === 'x') ? 'o' : 'x');
+				var canPlay = (!cell.played) && model.playing;
+				var t = canPlay ? ((model.turn === 'x') ? 'o' : 'x') : model.turn;
 				var c = _Utils_update(
 					cell,
 					{
 						played: true,
-						text: cell.played ? cell.text : model.turn
+						text: canPlay ? model.turn : cell.text
 					});
 				var cells = A2(
 					$elm$core$List$map,
 					$author$project$Main$updateByKey(c),
 					model.cells);
-				var h = $author$project$Main$isWin(cells) ? (t + ' wins!') : ($author$project$Main$isDraw(cells) ? 'draw...' : (t + ' turn'));
+				var h = $author$project$Main$isWin(cells) ? (((t === 'x') ? 'o' : 'x') + ' wins!') : ($author$project$Main$isDraw(cells) ? 'draw...' : (t + ' turn'));
 				var p = $author$project$Main$isWin(cells) ? false : ($author$project$Main$isDraw(cells) ? false : true);
 				return _Utils_update(
 					model,

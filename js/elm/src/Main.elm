@@ -82,15 +82,9 @@ isWin cells =
       ]
   in
   combinations
-    |> List.map (
-      \combination -> cells
-        |> List.filter (\c -> List.member c.key combination)
-      )
-    |> List.map (
-      \combination -> combination
-        |> List.all (\c -> c.text == "x" || c.text == "y")
-      )
-    |> List.any (\a -> a == True)
+    |> List.map ( \combination -> List.filter (\c -> List.member c.key combination) cells )
+    |> List.map ( \combination -> List.all (\c -> c.text == "x") combination || List.all (\c -> c.text == "o") combination )
+    |> List.any ( \a -> a == True )
   
 
 type alias Identifyable a = { a | key : Int }
@@ -134,28 +128,27 @@ update msg model =
 
     Play cell ->
       let
+        canPlay = cell.played == False && model.playing == True
+
         c = { cell
                | played = True
-               , text = if cell.played then cell.text else model.turn
+               , text = if canPlay then model.turn else cell.text
             }
 
         cells = List.map (updateByKey c) model.cells
 
         t = 
-          if cell.played then
-            model.turn
-          else 
+          if canPlay then
             if model.turn == "x" then
               "o"
             else
               "x"
-        
+          else 
+            model.turn
+
         h = 
           if isWin cells then
-            -- TODO: update the winning cells
-            -- List.map (\i -> if List.member i.key winningCells then { i | win = True } else { i | win = False } )  cells
-
-            t ++ " wins!"
+            (if t == "x" then "o" else "x") ++ " wins!"
           else
             if isDraw cells then
               "draw..."
@@ -170,8 +163,6 @@ update msg model =
               False
             else
               True
-
-        -- TODO: isWin
       in
       { model 
          | cells = cells
