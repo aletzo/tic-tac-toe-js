@@ -5205,8 +5205,50 @@ var $author$project$Main$isDraw = function (cells) {
 				},
 				cells))) === 9;
 };
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
+var $elm$core$List$member = F2(
+	function (x, xs) {
+		return A2(
+			$elm$core$List$any,
+			function (a) {
+				return _Utils_eq(a, x);
+			},
+			xs);
+	});
 var $author$project$Main$isWin = function (cells) {
-	var winningCells = _List_Nil;
 	var combinations = _List_fromArray(
 		[
 			_List_fromArray(
@@ -5226,7 +5268,32 @@ var $author$project$Main$isWin = function (cells) {
 			_List_fromArray(
 			[2, 4, 6])
 		]);
-	return winningCells;
+	return A2(
+		$elm$core$List$any,
+		function (a) {
+			return a;
+		},
+		A2(
+			$elm$core$List$map,
+			function (combination) {
+				return A2(
+					$elm$core$List$all,
+					function (c) {
+						return (c.text === 'x') || (c.text === 'y');
+					},
+					combination);
+			},
+			A2(
+				$elm$core$List$map,
+				function (combination) {
+					return A2(
+						$elm$core$List$filter,
+						function (c) {
+							return A2($elm$core$List$member, c.key, combination);
+						},
+						cells);
+				},
+				combinations)));
 };
 var $author$project$Main$updateByKey = F2(
 	function (cell, c) {
@@ -5272,9 +5339,8 @@ var $author$project$Main$update = F2(
 					$elm$core$List$map,
 					$author$project$Main$updateByKey(c),
 					model.cells);
-				var winningCells = $author$project$Main$isWin(cells);
-				var h = ($elm$core$List$length(winningCells) > 0) ? (t + ' wins!') : ($author$project$Main$isDraw(cells) ? 'draw...' : (t + ' turn'));
-				var p = ($elm$core$List$length(winningCells) > 0) ? false : ($author$project$Main$isDraw(cells) ? false : true);
+				var h = $author$project$Main$isWin(cells) ? (t + ' wins!') : ($author$project$Main$isDraw(cells) ? 'draw...' : (t + ' turn'));
+				var p = $author$project$Main$isWin(cells) ? false : ($author$project$Main$isDraw(cells) ? false : true);
 				return _Utils_update(
 					model,
 					{cells: cells, header: h, playing: p, turn: t});

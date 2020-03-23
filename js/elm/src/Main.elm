@@ -67,7 +67,7 @@ isDraw : List Cell -> Bool
 isDraw cells =
   List.length (List.filter ((==) True) (List.map (\c -> c.played) cells)) == 9
 
-isWin : List Cell -> List Int
+isWin : List Cell -> Bool
 isWin cells = 
   let
     combinations = 
@@ -80,37 +80,17 @@ isWin cells =
       , [ 0, 4, 8 ] -- diagonal
       , [ 2, 4, 6 ]
       ]
-
-    -- List.map ... combinations
-
-    winningCells = []
-
-
-    {-
-    combinations.forEach(combination => {
-        if (win) {
-            return
-        }
-
-        const cells = [...document.querySelectorAll('.cell')]
-
-        const combinationCells = cells.filter((cell, index) => combination.includes(index))
-
-        win = combinationCells.every(cell => {
-            return cell.innerHTML === turn
-        })
-
-        if (win) {
-           combinationCells.forEach(cell => cell.classList.add('win'))
-        }
-    })
-
-    return win
-    -}
-
-
   in
-  winningCells
+  combinations
+    |> List.map (
+      \combination -> cells
+        |> List.filter (\c -> List.member c.key combination)
+      )
+    |> List.map (
+      \combination -> combination
+        |> List.all (\c -> c.text == "x" || c.text == "y")
+      )
+    |> List.any (\a -> a == True)
   
 
 type alias Identifyable a = { a | key : Int }
@@ -170,11 +150,8 @@ update msg model =
             else
               "x"
         
-        winningCells : List Int
-        winningCells = isWin cells
-
         h = 
-          if (List.length winningCells) > 0 then
+          if isWin cells then
             -- TODO: update the winning cells
             -- List.map (\i -> if List.member i.key winningCells then { i | win = True } else { i | win = False } )  cells
 
@@ -186,7 +163,7 @@ update msg model =
               t ++ " turn"
 
         p =
-          if (List.length winningCells) > 0 then
+          if isWin cells then
             False
           else
             if isDraw cells then
