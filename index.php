@@ -24,6 +24,8 @@ foreach ($dirs as $fileinfo) {
     if (!is_file("js/$version/index.html")
         &&
         !is_file("js/$version/build/index.html")
+        &&
+        !is_file("js/$version/dist/ttt/index.html")
     ) {
         continue;
     }
@@ -41,6 +43,10 @@ $file = "js/$js/index.html";
 
 if (!is_file($file)) {
     $file = "js/$js/build/index.html";
+}
+
+if (!is_file($file)) {
+    $file = "js/$js/dist/ttt/index.html";
 }
 
 $content = file_get_contents($file);
