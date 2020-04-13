@@ -43,19 +43,26 @@ How to install
     git clone https://github.com/aletzo/tic-tac-toe-js.git
     ```
 
-2. Go to `js/react` dir and execute:
+2. Go to `js/angular` dir and execute:
+    ```
+    ng build --prod
+    ```
+
+3. Edit `js/angular/dist/ttt/index.html` to fix the paths of the static files.
+
+4. Go to `js/react` dir and execute:
     ```
     yarn run build
     ```
 
-3. Edit `js/react/build/index.html` to fix the paths of the 3 static files.
+5. Edit `js/react/build/index.html` to fix the paths of the 3 static files.
 
-4. Go to project root and start a local PHP server:
+6. Go to project root and start a local PHP server:
     ```
     php -S localhost:8000 router.php
     ```
 
-5. Open the app in a browser:
+7. Open the app in a browser:
     ```
     http://localhost:8000
     ```
