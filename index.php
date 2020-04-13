@@ -56,8 +56,6 @@ $content = file_get_contents($file);
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>tic tac toe - <?php echo $js ?></h1>
-
     <?php if (count($versions) > 1) : ?>
     <div id="versions">
         <?php foreach ($versions as $version) : ?>
@@ -71,6 +69,8 @@ $content = file_get_contents($file);
     </div>
     <?php endif ?>
 
+    <div id="content">
     <?php echo $content ?>
+    </div>
 </body>
 </html>
