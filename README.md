@@ -13,6 +13,7 @@ Implemented versions
 | Angular    | 145 (119 + 26)  |    45m |
 | Elm        | 210 (N/A)       | 5h 20m |
 | React      | 244 (N/A)       | 4h  5m |
+| Svelte     | 124 (82 + 42)   |    40m |
 | Vanilla.js | 145 (128 + 17)  |   < 3h |
 | Vue.js     | 127 (98 + 29)   |    50m |
 
@@ -33,6 +34,7 @@ Notes
 
 * Then I decided to give Angular another try. I was worried about struggling with file permissions once again, but `ng new` worked with the first try (!). I had to spend some time to familiarize myself with the code structure and remove all unnecessary boilerplate junk. Then everything was as almost intuitive as Vue.js. I only had to do 2 searches online (for the mouse* events and ngClass). Everything was copied over from the Vue.js solution almost verbatim. 
 
+* Then I gave a try to Svelte. It's almost as easy as Vue.js and almost as intuitive as Angular. Not clear how to handle the state efficiently. Also not clear how to structure the methods properly.
 
 
 How to install
@@ -57,12 +59,19 @@ How to install
 
 5. Edit `js/react/build/index.html` to fix the paths of the 3 static files.
 
-6. Go to project root and start a local PHP server:
+6. Go to `js/svelte` dir and execute:
+    ```
+    npm run build
+    ```
+
+7. Edit `js/svelte/build/index.html` to fix the paths of the 2 static files.
+
+8. Go to project root and start a local PHP server:
     ```
     php -S localhost:8000 router.php
     ```
 
-7. Open the app in a browser:
+9. Open the app in a browser:
     ```
     http://localhost:8000
     ```
