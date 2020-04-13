@@ -1,0 +1,27 @@
+<h2>
+    <span>
+        {{ header }}
+    </span>
+    <span
+        id="replay"
+        *ngIf="!playing"
+        (click)="replay()"
+    >
+        replay?
+    </span>
+</h2>
+
+<div class="container">
+    <div 
+        *ngFor="let cell of cells"
+        class="cell" 
+        [ngClass]="{ hover: cell.hover, win: cell.win }"
+        (click)="play(cell)"
+        (mouseover)="mouseover(cell)"
+        (mouseleave)="mouseleave(cell)"
+        (mouseout)="mouseout(cell)"
+    >
+        {{ cell.text }}
+    </div>
+</div>
+
