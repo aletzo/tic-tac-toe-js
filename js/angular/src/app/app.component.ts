@@ -28,15 +28,10 @@ export class AppComponent {
     turn = 'x';
 
     mouseleave(cell) {
-        console.log('mouseleave')
         cell.hover = false
     }
-    mouseout(cell) {
-        console.log('mouseout')
-        cell.hover = false
-    }
+
     mouseover(cell) {
-        console.log('mouseover')
         cell.hover = this.playing
     }
 
