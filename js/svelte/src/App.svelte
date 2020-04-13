@@ -5,8 +5,6 @@
 	export let turn;
 
     const play = (cell, i) => {
-        console.log('play')
-
         if (!playing) {
             return;
         }
