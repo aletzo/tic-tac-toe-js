@@ -12,6 +12,7 @@ Implemented versions
 | ---------- | --------------- | ------ |
 | Angular    | 145 (119 + 26)  |    45m |
 | Elm        | 210 (N/A)       | 5h 20m |
+| Mithril    | 167 (157 + 10)  | 1h 20m |
 | React      | 244 (N/A)       | 4h  5m |
 | Svelte     | 124 (82 + 42)   |    40m |
 | Vanilla.js | 145 (128 + 17)  |   < 3h |
@@ -35,6 +36,8 @@ Notes
 * Then I decided to give Angular another try. I was worried about struggling with file permissions once again, but `ng new` worked with the first try (!). I had to spend some time to familiarize myself with the code structure and remove all unnecessary boilerplate junk. Then everything was as almost intuitive as Vue.js. I only had to do 2 searches online (for the mouse* events and ngClass). Everything was copied over from the Vue.js solution almost verbatim. 
 
 * Then I gave a try to Svelte. It's almost as easy as Vue.js and almost as intuitive as Angular. Not clear how to handle the state efficiently. Also not clear how to structure the methods properly.
+
+* Then it was Mithril's turn. Not very intuitive. Maybe the `getting started` examples could have been better. Once I figured out `m(Component)` and how we can use `vnode.attrs`, everything became straightforward. Also not very big fan of how the arguments of `m()` work.
 
 
 How to install
